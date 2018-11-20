@@ -160,7 +160,7 @@ def bbs_thread(t_id='', prev=0):
                 reply[2] = re.sub(r'&gt;&gt;([\d]+)', \
                                   r'<a href="#\1">&gt;&gt;\1</a>', \
                                   reply[2])
-            reply[2] = do_format(reply[2])
+#            reply[2] = do_format(reply[2])
             print("<div class='reply'><div class='title'>")
             print("<a name='{0}' href='#reply'".format(p_n))
             print("onclick='addText(\"{1}\", \"{0}\")'>"\
@@ -185,7 +185,7 @@ def bbs_thread(t_id='', prev=0):
                                     .format(t_id) + r'&gt;&gt;\1</a>',
                                   reply[2])
                                   
-            reply[2] = do_format(reply[2])
+#            reply[2] = do_format(reply[2])
             if len(reply[2].split('<br>')) > 8:
                 reply[2] = '<br>'.join(reply[2].split('<br>')[:9])[:850]
                 if "<pre" and not "</pre>" in reply[2]:
@@ -624,27 +624,27 @@ def do_prev(bbt=[]):
 #        print("<hr width='420px' align='left'>")
         bbs_reply(conf[5] + bbt[1]+".txt")
 
-def do_format(urp=''):
-    x = "(text omitted)<br>" + urp.split('[/yt]')[-1] \
-        if len(urp.split('[yt]')) > 3 \
-        else ''
-    urp = '[yt]'.join(urp.split('[yt]')[:3])
-    urp += x
-#    urp += if len(urpl.split('[yt]')) > 3 urp.split('[/yt]')[-1]
-    urp = re.sub(r'\[yt\]http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?[\w\?=]*)?\[/yt\]', 
-                 r'<div style="width:480; height:320" class="youtube" id="\1"></div><p>', urp)
-
-    urp = re.sub(r'\[spoiler\](.*?)\[/spoiler\]',
-                 r'<span class="spoiler">\1</span>', urp)
-    urp = urp.split("<br>")
-    for n, l in enumerate(urp):
-        if l[:4] == '&gt;':
-            urp[n] = "<span class='quote'>" + l + "</span>"
-    urp = "<br>".join(urp)
-    urp = re.sub(r'(<br>{4,})', r'<br>', urp)
-    urp = re.sub(r'\[code\](.*?)\[/code\]', r'<pre><b>Code:</b><hr><code>\1</code></pre><p>', urp)
-    urp = urp.replace('&amp;', '&').encode('ascii', 'xmlcharrefreplace').decode()
-    return urp
+#def do_format(urp=''):
+#    x = "(text omitted)<br>" + urp.split('[/yt]')[-1] \
+#        if len(urp.split('[yt]')) > 3 \
+#        else ''
+#    urp = '[yt]'.join(urp.split('[yt]')[:3])
+#    urp += x
+##    urp += if len(urpl.split('[yt]')) > 3 urp.split('[/yt]')[-1]
+#    urp = re.sub(r'\[yt\]http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?[\w\?=]*)?\[/yt\]', 
+#                 r'<div style="width:480; height:320" class="youtube" id="\1"></div><p>', urp)
+#
+#    urp = re.sub(r'\[spoiler\](.*?)\[/spoiler\]',
+#                 r'<span class="spoiler">\1</span>', urp)
+#    urp = urp.split("<br>")
+#    for n, l in enumerate(urp):
+#        if l[:4] == '&gt;':
+#            urp[n] = "<span class='quote'>" + l + "</span>"
+#    urp = "<br>".join(urp)
+#    urp = re.sub(r'(<br>{4,})', r'<br>', urp)
+#    urp = re.sub(r'\[code\](.*?)\[/code\]', r'<pre><b>Code:</b><hr><code>\1</code></pre><p>', urp)
+#    urp = urp.replace('&amp;', '&').encode('ascii', 'xmlcharrefreplace').decode()
+#    return urp
 
 def tripcode(pw):
     pw = pw[:8]
